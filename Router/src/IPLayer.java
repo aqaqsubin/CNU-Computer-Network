@@ -159,20 +159,12 @@ public class IPLayer implements BaseLayer {
 
 	public synchronized boolean Receive(byte[] input) {
 		
-//		System.out.println("IP receive "+Thread.currentThread().getName());
-//		receiveThread = new Receive_Thread(input, ((IPLayer)this.friendIPLayer), (ARPLayer)this.GetUnderLayer(0));
-//		receiveStartThread = new Thread(receiveThread);
-//		receiveStartThread.start();
-//		return false;
-		//      System.out.println("IP receive input length : " + input.length);
 		      byte[] data = RemoveCappHeader(input, input.length);
 		
 		      if (srcme_Addr(input)) {
 		         return false;
 		      }
 		      if (dstme_Addr(input)) {
-		//    	  System.out.println();
-		//    	 System.out.println("goto GUI Layer");
 		         this.GetUpperLayer(0).Receive(data);
 		         return true;
 		      } else {
@@ -180,63 +172,41 @@ public class IPLayer implements BaseLayer {
 		         System.arraycopy(input, 16, destIP, 0, 4);
 		         Object[] value = routingTable.findEntry(destIP);
 		         if (value != null) {
-		            /* flag Ȯ�� */
+		            /* flag*/
 		            byte[] netAdd;
 		            if ((boolean) value[4]) {
 		               netAdd = (byte[]) value[2];
 		            } else {
 		               netAdd = (byte[]) destIP;
 		            }
-		            /* ��Ʈ��ũ �ּ� -> arp */
+
 		            byte[] opcode = new byte[2];
 		            opcode[0] = (byte) 0x00;
 		            opcode[1] = (byte) 0x01;
 		
-		//            System.out.println();
-		//            System.out.println("portName is "+portName+", input : "+(String)value[6]);
-		//            System.out.println();
-		//            
-		//            
-		            
-		//            String macAddress = String.format("%X:", srcMacAddress[0]) + String.format("%X:", srcMacAddress[1])
-		//			+ String.format("%X:", srcMacAddress[2]) + String.format("%X:", srcMacAddress[3])
-		//			+ String.format("%X:", srcMacAddress[4]) + String.format("%X", srcMacAddress[5]);
-		//		
-		//			
-		//			System.out.println("IP Layer src mac : " + macAddress);
-		//			
-		//			String macAddress1 = String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[0]) + String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[1])
-		//			+ String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[2]) + String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[3])
-		//			+ String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[4]) + String.format("%X", ((IPLayer)this.friendIPLayer).srcMacAddress[5]);
-		//		
-		//			
-		//			System.out.println("Friend IP Layer src mac : " + macAddress1);
-		//			System.out.println();
+     
 		            if(((String)value[6]).equals(portName)) {
-		//            	System.out.println("Send");
 		               ((ARPLayer) this.GetUnderLayer(0)).SendforARP(input, (String) value[6], m_sHeader.ip_srcaddr,
 		                     netAdd, srcMacAddress, new byte[6], opcode);
 		            }else {
-		//            	System.out.println("Send to Friend");
 		            	IPLayer friend = (IPLayer)this.friendIPLayer;
 		            	((ARPLayer) friend.GetUnderLayer(0)).SendforARP(input, (String) value[6], friend.m_sHeader.ip_srcaddr,
 		                        netAdd, friend.srcMacAddress, new byte[6], opcode);
 		            }
-		            //////////////later/////////////////////////
 		            
 		         }
 		      }
 		      return false;
 		
 	}
-	public boolean dstme_Addr(byte[] add) {//�ּ�Ȯ��
+	public boolean dstme_Addr(byte[] add) {
 		for(int i = 0;i<4;i++) {
 			if(add[i+16]!=m_sHeader.ip_srcaddr[i]) return false;
 		}
 
 		return true;
 	}
-	public boolean srcme_Addr(byte[] add) {//�ּ�Ȯ��
+	public boolean srcme_Addr(byte[] add) {
 		for(int i = 0;i<4;i++) {
 			if(add[i+12]!=m_sHeader.ip_srcaddr[i]) return false;
 		}
@@ -249,7 +219,6 @@ public class IPLayer implements BaseLayer {
 		
 		byte[] input;
 
-//		EthernetLayer ethernet;
 		ARPLayer arp;
 		IPLayer friend ;
 		
@@ -268,9 +237,6 @@ public class IPLayer implements BaseLayer {
 				return ;
 			}
 			if (dstme_Addr(input)) {
-				//		    	  System.out.println();
-				//		    	 System.out.println("goto GUI Layer");
-//				this.GetUpperLayer(0).Receive(data);
 				return ;
 			} else {
 				byte[] destIP = new byte[4];
@@ -289,37 +255,13 @@ public class IPLayer implements BaseLayer {
 					opcode[0] = (byte) 0x00;
 					opcode[1] = (byte) 0x01;
 
-					//		            System.out.println();
-					//		            System.out.println("portName is "+portName+", input : "+(String)value[6]);
-					//		            System.out.println();
-					//		            
-					//		            
-
-					//		            String macAddress = String.format("%X:", srcMacAddress[0]) + String.format("%X:", srcMacAddress[1])
-					//					+ String.format("%X:", srcMacAddress[2]) + String.format("%X:", srcMacAddress[3])
-					//					+ String.format("%X:", srcMacAddress[4]) + String.format("%X", srcMacAddress[5]);
-					//				
-					//					
-					//					System.out.println("IP Layer src mac : " + macAddress);
-					//					
-					//					String macAddress1 = String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[0]) + String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[1])
-					//					+ String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[2]) + String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[3])
-					//					+ String.format("%X:", ((IPLayer)this.friendIPLayer).srcMacAddress[4]) + String.format("%X", ((IPLayer)this.friendIPLayer).srcMacAddress[5]);
-					//				
-					//					
-					//					System.out.println("Friend IP Layer src mac : " + macAddress1);
-					//					System.out.println();
 					if(((String)value[6]).equals(portName)) {
-						//		            	System.out.println("Send");
 						((ARPLayer) arp).SendforARP(input, (String) value[6], m_sHeader.ip_srcaddr,
 								netAdd, srcMacAddress, new byte[6], opcode);
 					}else {
-						//		            	System.out.println("Send to Friend");
-//						IPLayer friend = (IPLayer)friendIPLayer;
 						((ARPLayer) friend.GetUnderLayer(0)).SendforARP(input, (String) value[6], friend.m_sHeader.ip_srcaddr,
 								netAdd, friend.srcMacAddress, new byte[6], opcode);
 					}
-					//////////////later/////////////////////////
 
 				}
 			}

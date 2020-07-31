@@ -33,7 +33,6 @@ public class RoutingTable {
       HashMap<String,Object[]> head = null;
       byte[] netmask = (byte[]) value[1];
       int netnum = computeNetnum(netmask);
-//      System.out.println(netnum);
 
       if(rountingTable.containsKey(netnum)) {
          head = rountingTable.get(netnum);
@@ -75,7 +74,6 @@ public class RoutingTable {
 
    public Object[] findEntry(byte[] realDestination) {
 	  long time = System.currentTimeMillis();
-//	  System.out.println(time);
       if(entries == null) return null;
 
       for(Map.Entry<Integer, HashMap<String,Object[]>> entry : entries) {
@@ -112,7 +110,6 @@ public class RoutingTable {
       HashMap<String,Object[]> head = rountingTable.get(netnum);
       if(head==null) return false;
 
-      /* Object[] value�� String���� ��ȯ : ���ϱ� ���� */
       byte[] valueDestIP = (byte[]) value[0];
       String valueDestIPString = (valueDestIP[0] & 0xFF) + "." + (valueDestIP[1] & 0xFF) + "."
             + (valueDestIP[2] & 0xFF) + "." + (valueDestIP[3] & 0xFF);

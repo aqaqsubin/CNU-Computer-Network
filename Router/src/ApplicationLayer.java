@@ -34,7 +34,7 @@ public class ApplicationLayer  extends JFrame implements BaseLayer    {
    public int nUnderLayerCount = 0;
    public String pLayerName = null;
    public static ARPTable arpTable;
-   //   public BaseLayer p_UnderLayer = null;
+
    public ArrayList<BaseLayer> p_aUnderLayerGUI = new ArrayList<BaseLayer>();
    public ArrayList<BaseLayer> p_aUpperLayer = new ArrayList<BaseLayer>();
    BaseLayer UnderLayer;
@@ -94,7 +94,6 @@ public class ApplicationLayer  extends JFrame implements BaseLayer    {
             m_LayerMgr.AddLayer(new IPLayer("IP2"));
             m_LayerMgr.AddLayer(new ApplicationLayer("GUI"));
 
-//            arpTable = new ARPTable((ARPLayer) m_LayerMgr.GetLayer("ARP"), (ARPLayer) m_LayerMgr.GetLayer("ARP2"));
             arpTable = new ARPTable((ARPLayer) m_LayerMgr.GetLayer("ARP"), (ARPLayer) m_LayerMgr.GetLayer("ARP2"),(ApplicationLayer) m_LayerMgr.GetLayer("GUI") );
             ((ARPLayer)m_LayerMgr.GetLayer("ARP")).SetARPTable(arpTable,(ApplicationLayer) m_LayerMgr.GetLayer("GUI"));
             ((ARPLayer)m_LayerMgr.GetLayer("ARP2")).SetARPTable(arpTable,(ApplicationLayer) m_LayerMgr.GetLayer("GUI"));
@@ -103,55 +102,12 @@ public class ApplicationLayer  extends JFrame implements BaseLayer    {
 
             m_LayerMgr.ConnectLayers(" NI ( +Ethernet ( +ARP ( +IP ( +GUI ) ) +IP ( +GUI ) ) ) ^GUI ( -IP ( -ARP ( -Ethernet ( -NI ) ) -Ethernet ( -NI ) ) )  ^NI2 ( +Ethernet2 ( +ARP2 ( +IP2 ( +GUI ) ) +IP2 ( +GUI ) ) ) ^GUI ( -IP2 ( -ARP2 ( -Ethernet2 ( -NI2 ) ) -Ethernet2 ( -NI2 ) ) )");
             
-
-//            System.out.println("GUI UnderLayer 0 : "+((ApplicationLayer) m_LayerMgr.GetLayer("GUI")).GetUnderLayer(0).GetLayerName());
-//            System.out.println("GUI UnderLayer 1 : "+((ApplicationLayer) m_LayerMgr.GetLayer("GUI")).GetUnderLayer(1).GetLayerName());
-//            System.out.println();
-//            System.out.println("ARP UpperLayer 0 : "+((ARPLayer) m_LayerMgr.GetLayer("ARP")).GetUpperLayer(0).GetLayerName());
-//            System.out.println("ARP UpperLayer 1 : "+((ARPLayer) m_LayerMgr.GetLayer("ARP")).GetUpperLayer(1).GetLayerName());
-//            System.out.println("ARP UnderLayer 0 : "+((ARPLayer) m_LayerMgr.GetLayer("ARP")).GetUnderLayer(0).GetLayerName());
-//            System.out.println("ARP UnderLayer 1 : "+((ARPLayer) m_LayerMgr.GetLayer("ARP")).GetUnderLayer(1).GetLayerName());
-//            System.out.println();
-//            System.out.println("ARP2 UpperLayer 0 : "+((ARPLayer) m_LayerMgr.GetLayer("ARP2")).GetUpperLayer(0).GetLayerName());
-//            System.out.println("ARP2 UpperLayer 1 : "+((ARPLayer) m_LayerMgr.GetLayer("ARP2")).GetUpperLayer(1).GetLayerName());
-//            System.out.println("ARP2 UnderLayer 0 : "+((ARPLayer) m_LayerMgr.GetLayer("ARP2")).GetUnderLayer(0).GetLayerName());
-//            System.out.println("ARP2 UnderLayer 1 : "+((ARPLayer) m_LayerMgr.GetLayer("ARP2")).GetUnderLayer(1).GetLayerName());
-//            System.out.println();
-//            System.out.println("Ethernet UnderLayer : "+((EthernetLayer) m_LayerMgr.GetLayer("Ethernet")).GetUnderLayer().GetLayerName());
-//            System.out.println("Ethernet UpperLayer 0 : "+((EthernetLayer) m_LayerMgr.GetLayer("Ethernet")).GetUpperLayer(0).GetLayerName());
-//            System.out.println("Ethernet UpperLayer 1 : "+((EthernetLayer) m_LayerMgr.GetLayer("Ethernet")).GetUpperLayer(1).GetLayerName());
-//            System.out.println();
-//            System.out.println("Ethernet2 UnderLayer : "+((EthernetLayer) m_LayerMgr.GetLayer("Ethernet2")).GetUnderLayer().GetLayerName());
-//            System.out.println("Ethernet2 UpperLayer 0 : "+((EthernetLayer) m_LayerMgr.GetLayer("Ethernet2")).GetUpperLayer(0).GetLayerName());
-//            System.out.println("Ethernet2 UpperLayer 1 : "+((EthernetLayer) m_LayerMgr.GetLayer("Ethernet2")).GetUpperLayer(1).GetLayerName());
-//            System.out.println();
-//            System.out.println("IP UnderLayer 0 : "+((IPLayer) m_LayerMgr.GetLayer("IP")).GetUnderLayer(0).GetLayerName());
-//            System.out.println("IP UnderLayer 1 : "+((IPLayer) m_LayerMgr.GetLayer("IP")).GetUnderLayer(1).GetLayerName());
-//            System.out.println("IP UpperLayer 0 : "+((IPLayer) m_LayerMgr.GetLayer("IP")).GetUpperLayer(0).GetLayerName());
-//            
-//            System.out.println();
-//            
             routingTable = new RoutingTable();
             
             ((IPLayer) m_LayerMgr.GetLayer("IP")).friendIPset(((IPLayer) m_LayerMgr.GetLayer("IP2")));
             ((IPLayer) m_LayerMgr.GetLayer("IP2")).friendIPset(((IPLayer) m_LayerMgr.GetLayer("IP")));
             ((IPLayer) m_LayerMgr.GetLayer("IP")).setRouter(routingTable);
             ((IPLayer) m_LayerMgr.GetLayer("IP2")).setRouter(routingTable);
-
-//            Object[] value = new Object[4];
-//            byte[] ip = new byte[4];
-//            ip[0]=(byte)168;
-//            ip[1]=(byte)168;
-//            ip[2]=(byte)168;
-//            ip[3]=(byte)168;
-//            
-//            
-//            value[0] = ip;
-//            value[1] = new byte[6];
-//            value[2] = "Incomplete";
-//            value[3] = System.currentTimeMillis();
-//			((ARPLayer) m_LayerMgr.GetLayer("ARP")).cacheTable.put("168.188.129.220", value);
-//			((ARPLayer) m_LayerMgr.GetLayer("ARP")).updateARPCacheTable();
 
          }
    public ApplicationLayer(String pName) throws IOException  {
@@ -227,7 +183,7 @@ public class ApplicationLayer  extends JFrame implements BaseLayer    {
 
       Routing_Jtable = new JTable(Routing_model); 
 
-      Routing_Jtable.getColumnModel().getColumn(0).setPreferredWidth(80);  //JTable �쓽 而щ읆 湲몄씠 議곗젅
+      Routing_Jtable.getColumnModel().getColumn(0).setPreferredWidth(80);  
       Routing_Jtable.getColumnModel().getColumn(1).setPreferredWidth(80);
       Routing_Jtable.getColumnModel().getColumn(2).setPreferredWidth(80);
       Routing_Jtable.getColumnModel().getColumn(3).setPreferredWidth(20);
@@ -313,7 +269,7 @@ public class ApplicationLayer  extends JFrame implements BaseLayer    {
 
       ARP_table = new JTable(ARP_model); 
 
-      ARP_table.getColumnModel().getColumn(0).setPreferredWidth(100);  //JTable �쓽 而щ읆 湲몄씠 議곗젅
+      ARP_table.getColumnModel().getColumn(0).setPreferredWidth(100);
       ARP_table.getColumnModel().getColumn(1).setPreferredWidth(100);
       ARP_table.getColumnModel().getColumn(2).setPreferredWidth(40);
       ARP_table.getColumnModel().getColumn(3).setPreferredWidth(10);
@@ -339,7 +295,7 @@ public class ApplicationLayer  extends JFrame implements BaseLayer    {
       ARP_Cache.add(btnItemDelete);
 
 		btnItemDelete.addActionListener(new ActionListener() {
-//********RE
+
 			public void actionPerformed(ActionEvent arg0) {
 				String del_ip = JOptionPane.showInputDialog("Item's IP Address");
 				if (del_ip != null) {
@@ -414,26 +370,7 @@ public class ApplicationLayer  extends JFrame implements BaseLayer    {
          public void actionPerformed(ActionEvent arg0) {
             String del_ip = JOptionPane.showInputDialog("Host's IP Address");
             if(del_ip != null) {
-               //               if(((ARPLayer) m_LayerMgr.GetLayer("ARP")).proxyTable.containsKey(del_ip)) {
-               //                  ((ARPLayer) m_LayerMgr.GetLayer("ARP")).proxyTable.remove(del_ip);
-               //
-               //                  String printResult ="";
-               //                  for(Iterator iterator = ((ARPLayer) m_LayerMgr.GetLayer("ARP")).proxyTable.keySet().iterator(); iterator.hasNext();) {
-               //                     String keyIP = (String)iterator.next();
-               //                     Object[] obj = ((ARPLayer) m_LayerMgr.GetLayer("ARP")).proxyTable.get(keyIP);
-               //                     printResult = printResult+"    "+(String)obj[0]+"\t";
-               //                     byte[] mac = (byte[])((ARPLayer) m_LayerMgr.GetLayer("ARP")).proxyTable.get(keyIP)[1];
-               //                     String ip_String =keyIP;
-               //                     String mac_String ="";
-               //
-               //                     for(int j=0;j<5;j++) mac_String = mac_String + String.format("%X:",mac[j]);
-               //                     mac_String = mac_String + String.format("%X",mac[5]);
-               //
-               //                     printResult = printResult+ip_String+"\t    "+mac_String+"\n";
-               //                  }
-               //                  int proxySize = ((ARPLayer) m_LayerMgr.GetLayer("ARP")).proxyTable.size();
-               //                  proxyArea.setText(printResult);
-               //               }
+               
             }
          }
       });
@@ -502,7 +439,7 @@ public class ApplicationLayer  extends JFrame implements BaseLayer    {
                
                System.out.println("NIC1: "+IPAddrbuf0.toString()+" // "+EthernetAddrbuf1.toString());
                System.out.println("NIC2: "+IPAddrbuf1.toString()+" // "+EthernetAddrbuf2.toString());
-//
+
                /*IP Address 설정*/
                ((IPLayer)m_LayerMgr.GetLayer("IP")).SetIPSrcAddress(ipSrcAddress1);
                ((IPLayer)m_LayerMgr.GetLayer("IP2")).SetIPSrcAddress(ipSrcAddress2);
@@ -513,8 +450,7 @@ public class ApplicationLayer  extends JFrame implements BaseLayer    {
                /*ARP Address 설정*/
                ((ARPLayer)m_LayerMgr.GetLayer("ARP")).SetIPAddrSrcAddr(ipSrcAddress1);
                ((ARPLayer)m_LayerMgr.GetLayer("ARP2")).SetIPAddrSrcAddr(ipSrcAddress2);
-//               ((ARPLayer)m_LayerMgr.GetLayer("ARP")).SetPortName("Port1");
-//               ((ARPLayer)m_LayerMgr.GetLayer("ARP2")).SetPortName("Port2");
+
                /*Ethernet Mac 주소 설정*/
                ((EthernetLayer) m_LayerMgr.GetLayer("Ethernet")).SetEnetSrcAddress(mac0);
                ((EthernetLayer) m_LayerMgr.GetLayer("Ethernet2")).SetEnetSrcAddress(mac1);

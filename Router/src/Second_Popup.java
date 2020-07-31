@@ -40,15 +40,10 @@ public class Second_Popup extends JFrame {
 	String[] interfaceName = { "Port1", "Port2" };
 	String interface0 = interfaceName[0];
 	int proxySize =0;
-//
-//	JComboBox<String> selectInterface;
-//	JLabel lbl_Interface;
-//	String[] interfaceName = { "Port1", "Port2" };
-//	String interface0 = interfaceName[0];
 
 	public Second_Popup(HashMap<String, Object[] > proxyTable,JTextArea proxyArea) {
 
-		setTitle("Proxy ARP Entry �߰�");
+		setTitle("Proxy ARP Entry");
 		setSize(450, 350);
 		setLocation(1200, 300);
 		getContentPane().setLayout(null);
@@ -60,8 +55,6 @@ public class Second_Popup extends JFrame {
 		contentPane.setLayout(null);
 
 
-//		lbl_Device = new JLabel("Device");
-//		lbl_Device.setBounds(50, 40, 90, 30);
 
 		lbl_Interface = new JLabel("Interface");
 		lbl_Interface.setBounds(50, 40, 90, 30);
@@ -76,9 +69,6 @@ public class Second_Popup extends JFrame {
 		});
 		contentPane.add(selectInterface);
 		
-
-//		contentPane.add(lbl_Device);
-//		contentPane.add(selectHost);
 
 		lbl_protocol = new JLabel("IP �ּ�");
 		lbl_protocol.setBounds(50, 90, 90, 30);
@@ -128,7 +118,6 @@ public class Second_Popup extends JFrame {
 						value[0] = interface_Num;
 						value[1] = macAddress;
 						value[2] = ipAddress;
-//						value[3] = interface_Num;
 
 						proxyTable.put(inputProtocol.getText(), value);
 

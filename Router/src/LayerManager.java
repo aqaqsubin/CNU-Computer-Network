@@ -33,7 +33,6 @@ public class LayerManager {
 	
 	public void AddLayer(BaseLayer pLayer){
 		mp_aLayers.add(m_nLayerCount++, pLayer);
-		//m_nLayerCount++;
 	}
 	
 	
@@ -81,8 +80,6 @@ public class LayerManager {
 
 	private void Push (BaseLayer pLayer){
 		mp_Stack.add(++m_nTop, pLayer);
-		//mp_Stack.add(pLayer);
-		//m_nTop++;
 	}
 
 	private BaseLayer Pop(){

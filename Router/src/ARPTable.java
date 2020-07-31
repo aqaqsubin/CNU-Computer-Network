@@ -42,7 +42,6 @@ public class ARPTable {
             
             System.out.println(ipAddress +" : "+macAddress);
             app.TotalArea.append("       " + ipAddress + "\t" + macAddress + "\t complete"+portName+"\n");
-            System.out.println("완료!!!");
          }
 		return;
 	}

@@ -109,9 +109,8 @@ public class EthernetLayer implements BaseLayer {
 		m_sHeader.enet_data = input;
 		if (m_sHeader.enet_data.length > 1500)
 			return false;
-		// for IP
+		// Get from IP Layer
 		if (identifier!=null) {
-			System.out.println("IP 에서 들어옴. : EthernetLayer ");
 			m_sHeader.enet_data = input;
 			m_sHeader.enet_type[0] = (byte) 0x08;
 			m_sHeader.enet_type[1] = (byte) 0x00;
@@ -123,7 +122,7 @@ public class EthernetLayer implements BaseLayer {
 			((NILayer)GetUnderLayer()).Send(frame, length + HEARER_SIZE);
 
 		} 
-		// for ARP
+		// Get from ARP Layer
 		else {
 
 			System.out.println();
@@ -194,7 +193,6 @@ public class EthernetLayer implements BaseLayer {
 				else {
 					String srcIpAddressToString = (data[14] & 0xFF) + "." + (data[15] & 0xFF) + "."
 			              + (data[16] & 0xFF) + "." + (data[17] & 0xFF);
-					System.out.println("ARP 도착 : "+srcIpAddressToString);
 					((ARPLayer)this.GetUpperLayer(0)).Receive(data, getEnetSrcAddress());
 				}
 				return true;
